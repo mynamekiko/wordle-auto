@@ -1,0 +1,49 @@
+name: Update Wordle Blog Draft
+
+on:
+  # 한국 시간 00:17에 실행됩니다. GitHub Actions는 UTC 기준이라 15:17 UTC로 적습니다.
+  # 예약 실행은 GitHub 상황에 따라 지연될 수 있어서, 급할 때는 Actions 탭에서 수동 실행하세요.
+  schedule:
+    - cron: "17 15 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "생성할 Wordle 날짜. 비워두면 한국 날짜 기준 오늘. 예: 2026-05-29"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update-wordle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate Wordle blog draft
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            node scripts/generate-wordle.mjs --date "${{ github.event.inputs.date }}"
+          else
+            node scripts/generate-wordle.mjs
+          fi
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data posts
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Wordle blog draft"
+            git push
+          else
+            echo "No changes to commit"
+          fi
