@@ -1,0 +1,11 @@
+{
+  "name": "wordle-auto-blogger",
+  "version": "1.0.0",
+  "description": "NYT Wordle answer fetcher and Korean Naver blog draft generator",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-wordle.mjs",
+    "generate:sample": "node scripts/generate-wordle.mjs --date 2026-05-29"
+  },
+  "dependencies": {}
+}

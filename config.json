@@ -1,0 +1,24 @@
+{
+  "timeZone": "Asia/Seoul",
+  "startWord": "CRANE",
+  "wordleUrl": "https://www.nytimes.com/games/wordle/index.html",
+  "includeAnswerInTags": false,
+  "defaultDifficulty": "중",
+  "defaultSuccessTry": "",
+  "defaultFrequency": "가끔",
+  "defaultCandidateWord": "",
+  "defaultExtraMemo": "",
+  "wordInfo": {
+    "CLANG": {
+      "pos": "명사 / 동사",
+      "difficulty": "중상",
+      "category": "일상 단어 / 소리·동작",
+      "hintTopic": "소리",
+      "frequency": "가끔",
+      "meaningKo": "쨍그랑 소리를 내다",
+      "candidateWord": "CANAL",
+      "successTry": "6",
+      "extraMemo": "자주 쓰는 단어가 아니라서 난이도가 약간 높은 듯했지만"
+    }
+  }
+}
