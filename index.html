@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wordle 워들 블로그 글 생성기</title>
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --text: #222222;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #2563eb;
+      --brand-dark: #1e40af;
+      --soft: #eff6ff;
+      --danger: #b91c1c;
+      --ok: #047857;
+      --shadow: 0 12px 30px rgba(15, 23, 42, .08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background: linear-gradient(180deg, #eef5ff 0%, var(--bg) 320px);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    header {
+      padding: 42px 18px 24px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 10px;
+      font-size: clamp(26px, 4vw, 42px);
+      letter-spacing: -0.04em;
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto 64px;
+      display: grid;
+      grid-template-columns: 420px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 14px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 2px 0 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: var(--brand-dark);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    fieldset {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin: 0 0 14px;
+      padding: 14px;
+    }
+
+    legend {
+      padding: 0 7px;
+      font-weight: 800;
+      color: #111827;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 12px;
+      color: #374151;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    label.inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0 4px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="url"],
+    textarea,
+    select {
+      width: 100%;
+      margin-top: 6px;
+      border: 1px solid #d1d5db;
+      border-radius: 11px;
+      padding: 10px 11px;
+      font: inherit;
+      font-size: 14px;
+      color: #111827;
+      background: #fff;
+      outline: none;
+      transition: border .15s, box-shadow .15s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+    }
+
+    textarea {
+      min-height: 72px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      margin: -5px 0 12px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 13px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+      transition: transform .05s, filter .15s;
+    }
+
+    button:hover {
+      filter: brightness(.97);
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    button.primary {
+      background: var(--brand);
+      color: white;
+    }
+
+    button.good {
+      background: #059669;
+      color: white;
+    }
+
+    button.ghost {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    button.warn {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+
+    .output-wrap {
+      padding: 18px;
+    }
+
+    .output-block {
+      margin-bottom: 16px;
+    }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .output-header h3 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .output {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fbfdff;
+      border-radius: 14px;
+      padding: 13px;
+      min-height: 50px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    textarea.output {
+      min-height: 380px;
+      line-height: 1.65;
+    }
+
+    #titleOutput {
+      min-height: 46px;
+    }
+
+    #tagsOutput {
+      min-height: 92px;
+    }
+
+    .mini {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .notice {
+      margin: 0 0 14px;
+      padding: 12px 13px;
+      border-radius: 14px;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fed7aa;
+      font-size: 13px;
+    }
+
+    .success {
+      display: none;
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      background: #111827;
+      color: white;
+      padding: 12px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      z-index: 20;
+    }
+
+    .success.show {
+      display: block;
+      animation: pop .18s ease-out;
+    }
+
+    @keyframes pop {
+      from { transform: translateY(8px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 14px 0;
+    }
+
+    details {
+      border: 1px dashed #d1d5db;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+      background: #fafafa;
+    }
+
+    summary {
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .small-list {
+      margin: 8px 0 0;
+      padding-left: 19px;
+      color: #4b5563;
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .sticky {
+        position: static;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .row,
+      .row-3 {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding-top: 30px;
+      }
+      .panel,
+      .output-wrap {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Wordle 워들 블로그 글 생성기</h1>
+    <p>
+      정답, 뜻, 난이도만 넣으면 네이버 블로그용 제목·힌트·정답 공개 문단·태그를 자동으로 만들어줍니다.
+      GitHub Pages에 올리면 파이썬 없이 브라우저에서 바로 사용할 수 있습니다.
+    </p>
+  </header>
+
+  <main>
+    <section class="card panel sticky" aria-label="입력 영역">
+      <div class="section-title">
+        <h2>입력값</h2>
+        <span class="badge">무설치 HTML</span>
+      </div>
+
+      <p class="notice">
+        드래그 힌트는 복사 후 네이버 편집기에서 해당 글자 색을 배경색과 비슷하게 바꾸면 더 자연스럽습니다.
+      </p>
+
+      <form id="toolForm">
+        <fieldset>
+          <legend>기본 정보</legend>
+
+          <div class="row">
+            <label>
+              날짜
+              <input id="date" type="date" />
+            </label>
+
+            <label>
+              워들 번호
+              <input id="wordleNo" type="number" min="0" placeholder="예: 1805" />
+            </label>
+          </div>
+
+          <label class="inline">
+            <input id="autoNo" type="checkbox" checked />
+            날짜 기준으로 Wordle 번호 자동 계산
+          </label>
+
+          <div class="row">
+            <label>
+              정답
+              <input id="answer" type="text" maxlength="5" placeholder="예: CLANG" />
+            </label>
+
+            <label>
+              성공 횟수
+              <select id="tryCount">
+                <option value="1">1번째</option>
+                <option value="2">2번째</option>
+                <option value="3">3번째</option>
+                <option value="4">4번째</option>
+                <option value="5">5번째</option>
+                <option value="6" selected>6번째</option>
+                <option value="X">실패</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Wordle 링크
+            <input id="gameUrl" type="url" value="https://www.nytimes.com/games/wordle/index.html" />
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>힌트 설정</legend>
+
+          <div class="row">
+            <label>
+              체감 난이도
+              <select id="difficulty">
+                <option>쉬움</option>
+                <option>중하</option>
+                <option>중</option>
+                <option selected>중상</option>
+                <option>어려움</option>
+              </select>
+            </label>
+
+            <label>
+              품사
+              <input id="partOfSpeech" type="text" placeholder="예: 동사 / 명사" />
+            </label>
+          </div>
+
+          <label>
+            뜻 범위
+            <input id="meaningScope" type="text" placeholder="예: 일상 단어 / 소리·동작" />
+          </label>
+
+          <label>
+            한국어 뜻
+            <input id="meaningKo" type="text" placeholder="예: 쨍그랑 소리를 내다" />
+          </label>
+
+          <div class="row">
+            <label>
+              1단계 힌트 주제
+              <input id="hintTheme" type="text" placeholder="예: 소리" />
+            </label>
+
+            <label>
+              일상 빈도
+              <select id="frequency">
+                <option>자주</option>
+                <option selected>가끔</option>
+                <option>드물게</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="row">
+            <label>
+              끝 글자 느낌
+              <input id="endingFeeling" type="text" placeholder="예: 흔한 편" />
+            </label>
+
+            <label>
+              고민했던 후보 단어
+              <input id="candidateWord" type="text" placeholder="예: CANAL" />
+            </label>
+          </div>
+
+          <label>
+            헷갈린 포인트
+            <input id="confusePoint" type="text" placeholder="예: 비슷한 후보 단어" />
+          </label>
+
+          <label class="inline">
+            <input id="includeY" type="checkbox" />
+            Y도 모음으로 계산
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>본문 옵션</legend>
+
+          <label>
+            정답 공개 전 빈 줄 개수
+            <input id="spoilerLines" type="number" min="3" max="30" value="12" />
+          </label>
+
+          <label>
+            추가 후기 문장
+            <textarea id="extraReview" placeholder="예: 자주 쓰는 단어가 아니라서 난이도가 약간 높은 듯했지만,,"></textarea>
+          </label>
+
+          <label class="inline">
+            <input id="includeNoInTitle" type="checkbox" />
+            제목에 Wordle 번호 넣기
+          </label>
+
+          <label class="inline">
+            <input id="includeAnswerTag" type="checkbox" />
+            태그에 정답 단어 포함하기
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>번외 링크</legend>
+
+          <div class="row">
+            <label>
+              추천 게임 이름
+              <input id="relatedGameName" type="text" value="꼬들" />
+            </label>
+
+            <label>
+              추천 문구
+              <input id="relatedGameDesc" type="text" value="단어를 맞히는 또 다른 재미가 있답니다." />
+            </label>
+          </div>
+
+          <label>
+            추천 게임 URL 또는 메모
+            <input id="relatedGameUrl" type="text" placeholder="예: https://kordle.kr 또는 꼬들" />
+          </label>
+        </fieldset>
+      </form>
+
+      <div class="actions">
+        <button class="primary" id="generateBtn" type="button">글 생성</button>
+        <button class="ghost" id="sampleBtn" type="button">CLANG 예시 불러오기</button>
+        <button class="warn" id="clearBtn" type="button">입력 초기화</button>
+      </div>
+
+      <details>
+        <summary>사용 팁</summary>
+        <ul class="small-list">
+          <li>정답은 제목이나 태그에 넣지 않는 편이 스포 방지에 좋습니다.</li>
+          <li>품사와 뜻은 자동 사전 검색이 아니므로 직접 입력하세요.</li>
+          <li>이미지는 네이버 블로그 편집기에서 스포방지 이미지 위치에 넣으면 됩니다.</li>
+          <li>GitHub Pages에서는 별도 설치 없이 이 파일만으로 실행됩니다.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="card output-wrap" aria-label="출력 영역">
+      <div class="section-title">
+        <h2>생성 결과</h2>
+        <span class="badge" id="statusBadge">자동 저장됨</span>
+      </div>
+
+      <div class="output-block">
+        <div class="output-header">
+          <h3>제목</h3>
+          <button class="good" type="button" data-copy="titleOutput">제목 복사</button>
+        </div>
+        <textarea id="titleOutput" class="output" readonly></textarea>
+      </div>
+
+      <div class="output-block">
+        <div class="output-header">
+          <h3>본문</h3>
+          <div class="actions" style="margin:0">
+            <button class="good" type="button" data-copy="bodyOutput">본문 복사</button>
+            <button class="ghost" type="button" id="downloadBodyBtn">TXT 저장</button>
+          </div>
+        </div>
+        <textarea id="bodyOutput" class="output" readonly></textarea>
+        <div class="mini">네이버 블로그에 붙여넣은 뒤 이미지와 드래그 힌트 색상만 조정하면 됩니다.</div>
+      </div>
+
+      <div class="output-block">
+        <div class="output-header">
+          <h3>태그</h3>
+          <button class="good" type="button" data-copy="tagsOutput">태그 복사</button>
+        </div>
+        <textarea id="tagsOutput" class="output" readonly></textarea>
+      </div>
+
+      <div class="output-block">
+        <div class="output-header">
+          <h3>이미지 캡션 추천</h3>
+          <button class="good" type="button" data-copy="captionOutput">캡션 복사</button>
+        </div>
+        <textarea id="captionOutput" class="output" readonly></textarea>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="success">복사했습니다.</div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const ids = [
+      "date", "wordleNo", "autoNo", "answer", "tryCount", "gameUrl",
+      "difficulty", "partOfSpeech", "meaningScope", "meaningKo",
+      "hintTheme", "frequency", "endingFeeling", "candidateWord",
+      "confusePoint", "includeY", "spoilerLines", "extraReview",
+      "includeNoInTitle", "includeAnswerTag", "relatedGameName",
+      "relatedGameDesc", "relatedGameUrl"
+    ];
+
+    const sample = {
+      date: "2026-05-29",
+      wordleNo: "1805",
+      autoNo: true,
+      answer: "CLANG",
+      tryCount: "6",
+      gameUrl: "https://www.nytimes.com/games/wordle/index.html",
+      difficulty: "중상",
+      partOfSpeech: "동사",
+      meaningScope: "일상 단어 / 소리·동작",
+      meaningKo: "쨍그랑 소리를 내다",
+      hintTheme: "소리",
+      frequency: "가끔",
+      endingFeeling: "흔한 편",
+      candidateWord: "CANAL",
+      confusePoint: "비슷한 후보 단어",
+      includeY: false,
+      spoilerLines: "12",
+      extraReview: "자주 쓰는 단어가 아니라서 난이도가 약간 높은 듯했지만,,",
+      includeNoInTitle: false,
+      includeAnswerTag: false,
+      relatedGameName: "꼬들",
+      relatedGameDesc: "단어를 맞히는 또 다른 재미가 있답니다.",
+      relatedGameUrl: "꼬들"
+    };
+
+    function todayDateString() {
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function setValues(obj) {
+      ids.forEach(id => {
+        const el = $(id);
+        if (!el) return;
+        const value = obj[id];
+        if (el.type === "checkbox") {
+          el.checked = Boolean(value);
+        } else {
+          el.value = value ?? "";
+        }
+      });
+      updateAutoNoState();
+      generate();
+    }
+
+    function getValues() {
+      const obj = {};
+      ids.forEach(id => {
+        const el = $(id);
+        if (!el) return;
+        obj[id] = el.type === "checkbox" ? el.checked : el.value;
+      });
+      return obj;
+    }
+
+    function saveValues() {
+      localStorage.setItem("wordleBlogToolValues", JSON.stringify(getValues()));
+    }
+
+    function loadValues() {
+      const saved = localStorage.getItem("wordleBlogToolValues");
+      if (saved) {
+        try {
+          setValues(JSON.parse(saved));
+          return;
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+      setValues(sample);
+    }
+
+    function parseLocalDate(dateStr) {
+      if (!dateStr) return null;
+      const [y, m, d] = dateStr.split("-").map(Number);
+      if (!y || !m || !d) return null;
+      return new Date(y, m - 1, d);
+    }
+
+    function formatKoreanDate(dateStr) {
+      const d = parseLocalDate(dateStr);
+      if (!d) return "";
+      const days = ["일", "월", "화", "수", "목", "금", "토"];
+      return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일(${days[d.getDay()]})`;
+    }
+
+    function mmdd(dateStr) {
+      const d = parseLocalDate(dateStr);
+      if (!d) return "0000";
+      return `${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+    }
+
+    function computeWordleNo(dateStr) {
+      const [y, m, d] = (dateStr || "").split("-").map(Number);
+      if (!y || !m || !d) return "";
+      const target = Date.UTC(y, m - 1, d);
+      const epoch = Date.UTC(2021, 5, 19); // 2021-06-19 기준. 2026-05-29 -> 1805
+      const days = Math.round((target - epoch) / 86400000);
+      return days >= 0 ? String(days) : "";
+    }
+
+    function normalizeAnswer(answer) {
+      return (answer || "").trim().replace(/[^a-zA-Z]/g, "").slice(0, 5).toUpperCase();
+    }
+
+    function countVowels(answer, includeY) {
+      const vowels = includeY ? "AEIOUY" : "AEIOU";
+      return [...answer].filter(ch => vowels.includes(ch)).length;
+    }
+
+    function hasDuplicate(answer) {
+      return new Set(answer.split("")).size !== answer.length;
+    }
+
+    function wordShape(answer) {
+      if (answer.length !== 5) return "_ _ _ _ _";
+      return `${answer[0]} _ _ _ ${answer[4]}`;
+    }
+
+    function duplicateText(answer) {
+      return hasDuplicate(answer) ? "있음" : "없음";
+    }
+
+    function duplicateSentence(answer) {
+      return hasDuplicate(answer) ? "반복됩니다" : "반복되지 않습니다";
+    }
+
+    function urlLine(url) {
+      const clean = (url || "").trim();
+      if (!clean) return "🔗 Wordle — The New York Times";
+      return "🔗 Wordle — The New York Times";
+    }
+
+    function spoilerGap(count) {
+      const n = Math.max(3, Math.min(30, Number(count) || 12));
+      return "\n".repeat(n);
+    }
+
+    function titleText(v, answer, no) {
+      const prefix = `[${mmdd(v.date)}]`;
+      const noText = v.includeNoInTitle && no ? ` #${no}` : "";
+      return `${prefix} 오늘의 Wordle 워들${noText} 정답|힌트|뜻 풀이(스포방지)`;
+    }
+
+    function bodyText(v) {
+      const answer = normalizeAnswer(v.answer);
+      const no = v.wordleNo || computeWordleNo(v.date);
+      const noText = no ? ` #${no}` : "";
+      const dateKo = formatKoreanDate(v.date) || "날짜를 입력해 주세요";
+      const vowelCount = answer ? countVowels(answer, v.includeY) : "";
+      const first = answer[0] || "";
+      const last = answer[4] || "";
+      const candidate = (v.candidateWord || "").trim().toUpperCase();
+      const candidateLine = candidate
+        ? `비슷한 구조의 단어 ${candidate}와 고민했는데 정답이 ${answer || "[정답]"}이었네요.`
+        : `비슷한 후보 단어와 고민했는데 정답이 ${answer || "[정답]"}이었네요.`;
+
+      const successLine = v.tryCount === "X"
+        ? "아쉽게도 오늘은 정답을 맞히지 못했습니다."
+        : `그래도 [ ${v.tryCount || " "} ]번째 시도에서 정답 성공!`;
+
+      const relatedName = (v.relatedGameName || "꼬들").trim();
+      const relatedDesc = (v.relatedGameDesc || "단어를 맞히는 또 다른 재미가 있답니다.").trim();
+      const relatedUrl = (v.relatedGameUrl || relatedName).trim();
+
+      return `📅 ${dateKo}
+
+Wordle 워들${noText} 1~3단계 순서로 힌트와 정답, 뜻 풀이까지 적어볼게요.
+
+정답을 보지 않고 단계별 힌트를 보고 풀고 싶으신 분들은
+스포방지 이미지에서 스크롤을 멈춰주세요!
+
+
+👇 오늘의 Wordle 워들 단어 맞히기 링크
+
+${urlLine(v.gameUrl)}
+
+
+💙 Wordle 워들 💙
+
+오늘의 Wordle은 체감 난이도 [ ${v.difficulty || "중"} ] !
+
+영어 단어가 아주 어렵진 않았지만,
+[ ${v.confusePoint || "비슷한 후보 단어"} ] 때문에
+살짝 고민할 수 있는 문제였어요.
+
+
+💙 Wordle 힌트 요약 💙
+
+- 품사 : [ ${v.partOfSpeech || "직접 입력"} ]
+
+- 체감 난이도 : [ ${v.difficulty || "중"} ]
+
+- 모음 개수 : [ ${vowelCount || " "}개 ]
+
+- 중복 글자 : [ ${answer ? duplicateText(answer) : " "} ]
+
+- 뜻 범위 : [ ${v.meaningScope || "직접 입력"} ]
+
+
+[ Wordle 1단계 힌트 ]
+
+오늘의 단어는 [ ${v.hintTheme || "직접 입력"} ]와 관련된 단어예요.
+
+일상에서 [ ${v.frequency || "가끔"} ] 볼 수 있는 단어이고,
+아주 전문적인 단어는 아니었습니다.
+
+아직은 정답과 직접적인 글자 힌트는 없어요!
+
+
+[ Wordle 2단계 힌트 ]
+
+이제 글자 힌트입니다!
+
+- 모음은 [ ${vowelCount || " "} ]개 들어갑니다.
+
+- 같은 글자는 [ ${answer ? duplicateSentence(answer) : " "} ].
+
+- 끝 글자는 [ ${v.endingFeeling || "직접 입력"} ]입니다.
+
+- 첫 글자 : [ ${first || " "} ] ← 옆 드래그
+
+
+[ Wordle 3단계 힌트 ]
+
+거의 정답에 가까운 힌트입니다.
+옆을 드래그하시면 숨겨진 글자가 보입니다!
+
+- 마지막 글자 : [ ${last || " "} ] ← 옆 드래그
+
+- 단어 모양 : [ ${answer ? wordShape(answer) : "_ _ _ _ _"} ] ← 옆 드래그
+
+- 한국어 뜻 : [ ${v.meaningKo || "직접 입력"} ] ← 옆 드래그
+
+
+💙 Wordle 정답 공개 💙
+
+드디어 오늘의 Wordle 정답 공개입니다.
+
+아직 직접 풀고 싶으신 분들은 스크롤을 멈춰주세요!
+(정답은 아래 캡처를 확인해 주세요👇)
+${spoilerGap(v.spoilerLines)}
+오늘의 정답은 [ ${answer || "정답"} ] 입니다!
+
+
+${answer || "정답"}은
+“${v.meaningKo || "뜻을 입력해 주세요"}”라는 뜻으로 볼 수 있어요.
+
+첫 단어에서 [ ${first || " "} ]가 잡혀서 방향은 빨리 잡혔는데,
+${candidateLine}
+
+${v.extraReview ? v.extraReview.trim() + "\n\n" : ""}${successLine}
+
+여러분은 오늘 몇 번 만에 성공하셨나요?
+
+
+번외)
+
+워들을 다 푸셨다면, 비슷한 방식의 ${relatedName}도 도전해 보세요!
+
+${relatedDesc}
+
+(클릭👉) ${relatedUrl}`;
+    }
+
+    function tagsText(v) {
+      const no = v.wordleNo || computeWordleNo(v.date);
+      const answer = normalizeAnswer(v.answer);
+      const tags = [
+        "#Wordle",
+        "#워들",
+        "#오늘의워들",
+        "#워들힌트",
+        "#워들정답",
+        "#Wordle힌트",
+        "#Wordle정답",
+        "#워들풀이",
+        "#Wordle풀이",
+        "#워들스포방지",
+        "#Wordle스포방지",
+        "#영어단어게임",
+        "#영어퍼즐",
+        "#단어게임",
+        "#NYTWordle",
+        "#뉴욕타임즈워들"
+      ];
+
+      if (no) {
+        tags.push(`#워들${no}`);
+        tags.push(`#Wordle${no}`);
+      }
+
+      if (v.includeAnswerTag && answer) {
+        tags.push(`#${answer}`);
+      }
+
+      const relatedName = (v.relatedGameName || "").trim().replace(/\s+/g, "");
+      if (relatedName) tags.push(`#${relatedName}`);
+
+      return [...new Set(tags)].join(" ");
+    }
+
+    function captionText(v) {
+      const no = v.wordleNo || computeWordleNo(v.date);
+      const noText = no ? ` #${no}` : "";
+      return `오늘의 Wordle 워들${noText} 스포방지
+Wordle 1단계 힌트
+Wordle 2단계 글자 힌트
+Wordle 3단계 강한 힌트
+오늘의 Wordle 정답 공개
+Wordle 풀이 결과`;
+    }
+
+    function generate() {
+      const v = getValues();
+      const answer = normalizeAnswer(v.answer);
+      if (v.answer !== answer) {
+        $("answer").value = answer;
+        v.answer = answer;
+      }
+
+      if (v.autoNo) {
+        const no = computeWordleNo(v.date);
+        $("wordleNo").value = no;
+        v.wordleNo = no;
+      }
+
+      const no = v.wordleNo || computeWordleNo(v.date);
+      $("titleOutput").value = titleText(v, answer, no);
+      $("bodyOutput").value = bodyText(v);
+      $("tagsOutput").value = tagsText(v);
+      $("captionOutput").value = captionText(v);
+
+      saveValues();
+    }
+
+    function updateAutoNoState() {
+      $("wordleNo").readOnly = $("autoNo").checked;
+      $("wordleNo").style.background = $("autoNo").checked ? "#f9fafb" : "#fff";
+      if ($("autoNo").checked) {
+        $("wordleNo").value = computeWordleNo($("date").value);
+      }
+    }
+
+    async function copyTextFrom(id) {
+      const text = $(id).value || $(id).textContent || "";
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (e) {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+      }
+      showToast("복사했습니다.");
+    }
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1400);
+    }
+
+    function downloadBody() {
+      const v = getValues();
+      const filename = `${mmdd(v.date)}_wordle_blog.txt`;
+      const blob = new Blob([$("titleOutput").value + "\n\n" + $("bodyOutput").value + "\n\n" + $("tagsOutput").value], {
+        type: "text/plain;charset=utf-8"
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      a.remove();
+      showToast("TXT 파일로 저장했습니다.");
+    }
+
+    ids.forEach(id => {
+      document.addEventListener("input", (e) => {
+        if (e.target && e.target.id === id) {
+          if (id === "autoNo" || id === "date") updateAutoNoState();
+          generate();
+        }
+      });
+      document.addEventListener("change", (e) => {
+        if (e.target && e.target.id === id) {
+          if (id === "autoNo" || id === "date") updateAutoNoState();
+          generate();
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-copy]").forEach(btn => {
+      btn.addEventListener("click", () => copyTextFrom(btn.getAttribute("data-copy")));
+    });
+
+    $("generateBtn").addEventListener("click", generate);
+    $("sampleBtn").addEventListener("click", () => setValues(sample));
+    $("clearBtn").addEventListener("click", () => {
+      const blank = {...sample};
+      blank.date = todayDateString();
+      blank.answer = "";
+      blank.partOfSpeech = "";
+      blank.meaningScope = "";
+      blank.meaningKo = "";
+      blank.hintTheme = "";
+      blank.endingFeeling = "";
+      blank.candidateWord = "";
+      blank.confusePoint = "";
+      blank.extraReview = "";
+      blank.tryCount = "4";
+      setValues(blank);
+    });
+    $("downloadBodyBtn").addEventListener("click", downloadBody);
+
+    loadValues();
+  </script>
+</body>
+</html>
