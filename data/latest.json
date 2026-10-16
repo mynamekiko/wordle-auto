@@ -1,29 +1,31 @@
 {
-  "generatedAt": "2026-10-15T19:05:52.541Z",
-  "date": "2026-10-16",
-  "dateKorean": "2026년 10월 16일(금)",
-  "shortDate": "1016",
-  "sourceUrl": "https://www.nytimes.com/svc/wordle/v2/2026-10-16.json",
+  "generatedAt": "2026-10-16T18:47:36.527Z",
+  "date": "2026-10-17",
+  "dateKorean": "2026년 10월 17일(토)",
+  "shortDate": "1017",
+  "sourceUrl": "https://www.nytimes.com/svc/wordle/v2/2026-10-17.json",
   "raw": {
-    "id": 1001,
-    "solution": "shady",
-    "print_date": "2026-10-16",
-    "days_since_launch": 1945,
+    "id": 1267,
+    "solution": "gaffe",
+    "print_date": "2026-10-17",
+    "days_since_launch": 1946,
     "editor": "Tracy Bennett"
   },
-  "answer": "SHADY",
-  "puzzleNumber": 1945,
+  "answer": "GAFFE",
+  "puzzleNumber": 1946,
   "editor": "Tracy Bennett",
   "analysis": {
-    "answer": "SHADY",
-    "first": "S",
-    "last": "Y",
-    "vowelCount": 1,
-    "hasDuplicate": false,
-    "duplicateLetters": [],
-    "duplicateText": "없음",
-    "repeatedText": "반복되지 않습니다",
-    "shape": "S _ _ _ Y"
+    "answer": "GAFFE",
+    "first": "G",
+    "last": "E",
+    "vowelCount": 2,
+    "hasDuplicate": true,
+    "duplicateLetters": [
+      "F"
+    ],
+    "duplicateText": "있음",
+    "repeatedText": "반복됩니다",
+    "shape": "G _ _ _ E"
   },
   "info": {
     "pos": "[직접 입력]",
@@ -36,11 +38,11 @@
     "successTry": "",
     "extraMemo": ""
   },
-  "title": "[1016] 오늘의 Wordle 워들 #1945 정답|힌트|뜻 풀이(스포방지)",
-  "body": "📅 2026년 10월 16일(금)\n\nWordle 워들 #1945 1~3단계 순서로 힌트와 정답, 뜻 풀이까지 적어볼게요.\n\n정답을 보지 않고 단계별 힌트를 보고 풀고 싶으신 분들은\n스포방지 이미지에서 스크롤을 멈춰주세요!\n\n👇 오늘의 Wordle 워들 단어 맞히기 링크\n🔗 Wordle — The New York Times\n\n\n💙 Wordle 워들 💙\n\n오늘의 Wordle은 체감 난이도 [ 중 ] !\n\n영어 단어가 아주 어렵진 않았지만,\n[ 비슷한 후보 단어 ] 때문에\n살짝 고민할 수 있는 문제였어요.\n\n\n💙 Wordle 힌트 요약 💙\n\n- 품사 : [ [직접 입력] ]\n\n- 체감 난이도 : [ 중 ]\n\n- 모음 개수 : [ 1개 ]\n\n- 중복 글자 : [ 없음 ]\n\n- 뜻 범위 : [ [뜻 범위 직접 입력] ]\n\n\n[ Wordle 1단계 힌트 ]\n\n오늘의 단어는 [ [주제 직접 입력] ]와 관련된 단어예요.\n\n일상에서 [ 가끔 ] 볼 수 있는 단어이고,\n아주 전문적인 단어는 아니었습니다.\n\n아직은 정답과 직접적인 글자 힌트는 없어요!\n\n\n[ Wordle 2단계 힌트 ]\n\n이제 글자 힌트입니다 !\n\n- 모음은 [ 1 ]개 들어갑니다.\n\n- 같은 글자는 [ 반복되지 않습니다 ].\n\n- 끝 글자는 [ 흔한 편 ]입니다.\n\n- 첫 글자 : [ S ] ← 옆 드래그\n\n\n[ Wordle 3단계 힌트 ]\n\n거의 정답에 가까운 힌트입니다.\n옆을 드래그하시면 숨겨진 글자가 보입니다 !\n\n- 마지막 글자 : [ Y ] ← 옆 드래그\n\n- 단어 모양 : [ S _ _ _ Y ] ← 옆 드래그\n\n- 한국어 뜻 : [ [한국어 뜻 직접 입력] ] ← 옆 드래그\n\n\n💙 Wordle 정답 공개 💙\n\n드디어 오늘의 Wordle 정답 공개입니다.\n\n아직 직접 풀고 싶으신 분들은 스크롤을 멈춰주세요 !\n(정답은 아래 캡처를 확인해 주세요👇)\n\n\n\n\n\n\n\n\n\n\n\n\n오늘의 정답은 [ SHADY ] 입니다!\n\n\n정답 단어는\n“[한국어 뜻 직접 입력]”라는 뜻으로 볼 수 있어요.\n\n첫 글자에서 [ S ]가 잡히면 방향은 빨리 잡힐 수 있는데,\n비슷한 후보 단어들이 있어서 마지막까지 살짝 고민했네요.\n\n그래도 [  ]번째 시도에서 정답 성공!\n\n여러분은 오늘 몇 번 만에 성공하셨나요?\n\n\n번외)\n\n워들을 다 푸셨다면, 비슷한 방식의 꼬들도 도전해 보세요!\n한국어 단어를 맞히는 또 다른 재미가 있답니다.\n\n(클릭👉) 꼬들",
-  "tags": "#Wordle #워들 #오늘의워들 #워들힌트 #워들정답 #Wordle힌트 #Wordle정답 #워들풀이 #Wordle풀이 #워들스포방지 #Wordle스포방지 #영어단어게임 #영어퍼즐 #단어게임 #NYTWordle #뉴욕타임즈워들 #워들1945 #Wordle1945",
+  "title": "[1017] 오늘의 Wordle 워들 #1946 정답|힌트|뜻 풀이(스포방지)",
+  "body": "📅 2026년 10월 17일(토)\n\nWordle 워들 #1946 1~3단계 순서로 힌트와 정답, 뜻 풀이까지 적어볼게요.\n\n정답을 보지 않고 단계별 힌트를 보고 풀고 싶으신 분들은\n스포방지 이미지에서 스크롤을 멈춰주세요!\n\n👇 오늘의 Wordle 워들 단어 맞히기 링크\n🔗 Wordle — The New York Times\n\n\n💙 Wordle 워들 💙\n\n오늘의 Wordle은 체감 난이도 [ 중 ] !\n\n영어 단어가 아주 어렵진 않았지만,\n[ 비슷한 후보 단어 ] 때문에\n살짝 고민할 수 있는 문제였어요.\n\n\n💙 Wordle 힌트 요약 💙\n\n- 품사 : [ [직접 입력] ]\n\n- 체감 난이도 : [ 중 ]\n\n- 모음 개수 : [ 2개 ]\n\n- 중복 글자 : [ 있음 ]\n\n- 뜻 범위 : [ [뜻 범위 직접 입력] ]\n\n\n[ Wordle 1단계 힌트 ]\n\n오늘의 단어는 [ [주제 직접 입력] ]와 관련된 단어예요.\n\n일상에서 [ 가끔 ] 볼 수 있는 단어이고,\n아주 전문적인 단어는 아니었습니다.\n\n아직은 정답과 직접적인 글자 힌트는 없어요!\n\n\n[ Wordle 2단계 힌트 ]\n\n이제 글자 힌트입니다 !\n\n- 모음은 [ 2 ]개 들어갑니다.\n\n- 같은 글자는 [ 반복됩니다 ].\n\n- 끝 글자는 [ 흔한 편 ]입니다.\n\n- 첫 글자 : [ G ] ← 옆 드래그\n\n\n[ Wordle 3단계 힌트 ]\n\n거의 정답에 가까운 힌트입니다.\n옆을 드래그하시면 숨겨진 글자가 보입니다 !\n\n- 마지막 글자 : [ E ] ← 옆 드래그\n\n- 단어 모양 : [ G _ _ _ E ] ← 옆 드래그\n\n- 한국어 뜻 : [ [한국어 뜻 직접 입력] ] ← 옆 드래그\n\n\n💙 Wordle 정답 공개 💙\n\n드디어 오늘의 Wordle 정답 공개입니다.\n\n아직 직접 풀고 싶으신 분들은 스크롤을 멈춰주세요 !\n(정답은 아래 캡처를 확인해 주세요👇)\n\n\n\n\n\n\n\n\n\n\n\n\n오늘의 정답은 [ GAFFE ] 입니다!\n\n\n정답 단어는\n“[한국어 뜻 직접 입력]”라는 뜻으로 볼 수 있어요.\n\n첫 글자에서 [ G ]가 잡히면 방향은 빨리 잡힐 수 있는데,\n비슷한 후보 단어들이 있어서 마지막까지 살짝 고민했네요.\n\n그래도 [  ]번째 시도에서 정답 성공!\n\n여러분은 오늘 몇 번 만에 성공하셨나요?\n\n\n번외)\n\n워들을 다 푸셨다면, 비슷한 방식의 꼬들도 도전해 보세요!\n한국어 단어를 맞히는 또 다른 재미가 있답니다.\n\n(클릭👉) 꼬들",
+  "tags": "#Wordle #워들 #오늘의워들 #워들힌트 #워들정답 #Wordle힌트 #Wordle정답 #워들풀이 #Wordle풀이 #워들스포방지 #Wordle스포방지 #영어단어게임 #영어퍼즐 #단어게임 #NYTWordle #뉴욕타임즈워들 #워들1946 #Wordle1946",
   "imageCaptions": [
-    "오늘의 Wordle 워들 #1945 스포방지",
+    "오늘의 Wordle 워들 #1946 스포방지",
     "Wordle 힌트 요약",
     "Wordle 1단계 힌트",
     "Wordle 2단계 글자 힌트",
